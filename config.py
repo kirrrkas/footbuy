@@ -1,6 +1,5 @@
 import os
 import urllib
-from flask import url_for
 from dotenv import load_dotenv
 load_dotenv()
 
