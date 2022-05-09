@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+<html lang="ru" class="js">
+	{% block head %}
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../../static/demo.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/component.css" />
+		<link media="screen" href="../../static/demo.css" type="text/css" rel="stylesheet" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	{% endblock %}
+		{% block title %}
+			Выбор места
+		{% endblock %}
+	{% block body %}
+		<div class="plan">
+			<h3 class="plan__title">Выберите место:</h3>
+
+			<div class="rows rows--mini">
+				{% for m_row in m_rows %}
+				<div class="row">
+					{% for place in tickets_sector %}
+						{% if place[0] == m_row[0] %}
+							{% if place[3] == 1 %}
+								<div class="row__seat tooltip" data-tooltip="{{ place[0] }}р {{ place[1] }}м" id="{{ place[2] }}"></div>
+							{% else %}
+								<div class="row__seat row__seat--reserved" data-tooltip="{{ place[0] }}р {{ place[1] }}м" id="{{ place[2] }}"></div>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</div>
+				{% endfor %}
+			</div>
+			<!-- /rows -->
+            <br><div class="plan__price" data-price="{{ tickets_sector[0][4] }}">Цена билета: {{ tickets_sector[0][4] }} рублей</div>
+            <br><div class="plan__sum__price" data-sum-price=""></div>
+			<ul class="legend">
+				<li class="legend__item legend__item--free">Свободные</li>
+				<li class="legend__item legend__item--reserved">Резерв</li>
+				<li class="legend__item legend__item--selected">Выбранные</li>
+			</ul>
+
+			<form id="buy-form" method="post">
+        		<button disabled="" type="submit" name="buy_button" class="action action--buy">Купить билет</button>
+    		</form>
+			<!--<button class="action action--buy" >Купить билет</button>-->
+		</div><!-- /plan -->
+		<script src="../../static/seats.js"></script>
+		<script src="../../static/classie.js"></script>
+	{% endblock %}
+</html>

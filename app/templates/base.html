@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="static/logo.png">
+    {% block head %}{% endblock %}
+    <title>FootBuy{% if self.title() | trim %} | {% endif %} {% block title %} {% endblock %}
+    </title>
+    <ul>
+        <li><a href="{{ url_for('main.index') }}">Главная</a></li>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('main.profile') }}">Профиль: {{ current_user.full_name }}</a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Выход</a></li>
+            {% if current_user.has_role('admin') %}
+            <li><a href="/admin">Админ</a></li>
+            <li><a href="{{ url_for('admin_bp.add_match') }}">Добавить матч</a></li>
+            {% endif %}
+        {% else %}
+        <li><a href="{{ url_for('auth.login') }}">Вход</a></li>
+        <li><a href="{{ url_for('auth.register') }}">Регистрация</a></li>
+        {% endif %}
+        {% block nav %}{% endblock %}
+    </ul><HR>
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for msg in get_flashed_messages() %}
+        <div class="flash"><FONT COLOR=RED>{{msg}}</FONT></div>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+    {% block body %}{% endblock %}
+</body>
+</html>
+

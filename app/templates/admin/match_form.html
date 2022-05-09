@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Добавление матча{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h1>
+            {% if all_matches %}
+            <ul>
+                {% for m in all_matches %}
+                    <li>{{ m }}</li>
+                {% endfor %}
+            </ul><p>
+
+            <ul>
+            Архивные матчи:
+                {% for arch_m in archive_matches %}
+                    <li>{{ arch_m }}</li>
+                {% endfor %}
+            </ul>
+            {% else %} Здесь будет информация о матчах
+            {% endif %}
+        </h1>
+    </div>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.opponent.label }} {{ form.opponent() }}
+        <p>{{ form.tournament.label }} {{ form.tournament() }}
+        <p>{{ form.m_datetime.label }} {{ form.m_datetime(min="2020-01-01T00:00", max="9999-12-31T23:59") }}
+        <p>{{ form.price.label }} {{ form.price() }}
+        <p>{{ form.submit() }}
+    </form>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="static/logo.png">
+    <style>
+   img {position: relative;
+    bottom: 220px;
+    left: 350px;
+       width: 250px;
+       height: 250px
+   }
+   html {
+       font-size: 18px;
+       font-family: sans-serif;
+    }
+    </style>
+</head>
+<body>
+<h1>ЭЛЕКТРОННЫЙ БИЛЕТ</h1>
+<p>Матч: *Наши* - {{ ticket[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Дата: {{ ticket[1].strftime('%d.%m.%Y, %H:%M:%S') }}</p>
+<p>Цена: {{ ticket[2] }} руб.</p>
+<p>Код билета: {{ ticket[3] }}</p><br>
+<p>Сектор {{ ticket[4] }}</p>
+<p>Ряд {{ ticket[5] }}</p>
+<p>Место {{ ticket[6] }}</p>
+
+<img src="file:\\{{ filename }}">
+</body>
+</html>

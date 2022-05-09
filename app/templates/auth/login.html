@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Вход{% endblock %}
+
+{% block body %}
+
+{% for field, errors in form.errors.items() %}
+    <small class="form-text text-muted ">
+    <FONT COLOR=RED>{{ ', '.join(errors) }}</FONT>
+    </small>
+{% endfor %}
+
+    <div class="page-header">
+        <h1>
+            Вход
+        </h1>
+    </div>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.login.label }} {{ form.login() }}
+        <p>{{ form.password.label }} {{ form.password() }}
+        <p>{{ form.remember_me.label }} {{ form.remember_me() }}
+        <p>{{ form.submit() }}
+        <p>Новый пользователь? <a href="{{ url_for('auth.register') }}">Нажмите для регистрации</a>.</p>
+    </form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Выбор сектора
+{% endblock %}
+
+{% block body %}
+<h1>FootBuy</h1>
+<h2>
+    {% if sectors %}
+    <ul>
+        {% for sector in sectors %}
+            <li><a href="{{ url_for('.sector', match=match, m_sector=sector[0]) }}">{{sector[0]}}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</h2>
+{% endblock %}

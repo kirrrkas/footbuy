@@ -1,0 +1,21 @@
+@font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'codropsicons';
+	src:url('codropsicons.eot');
+	src:url('codropsicons.eot?#iefix') format('embedded-opentype'),
+		url('codropsicons.woff') format('woff'),
+		url('codropsicons.ttf') format('truetype'),
+		url('codropsicons.svg#codropsicons') format('svg');
+}
+
+
+body {
+	font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #fff;
+	background: #272729;
+	height: 100vh;
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}

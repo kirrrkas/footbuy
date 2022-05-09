@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block body %}
+
+{% for field, errors in form.errors.items() %}
+    <small class="form-text text-muted ">
+    <FONT COLOR=RED>{{ ', '.join(errors) }}</FONT>
+    </small>
+{% endfor %}
+
+    <div class="page-header">
+        <h1>
+            Регистрация
+        </h1>
+    </div>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.fanID.label }} {{ form.fanID() }}
+        <p>{{ form.full_name.label }} {{ form.full_name() }}
+        <p>{{ form.phone.label }} {{ form.phone() }}
+        <p>{{ form.email.label }} {{ form.email() }}
+        <p>{{ form.password.label }} {{ form.password() }}
+        <p>{{ form.password2.label }} {{ form.password2() }}
+
+        <p>{{ form.submit() }}
+    </form>
+{% endblock %}

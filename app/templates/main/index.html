@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>FootBuy</h1>
+<h2>
+    {% if matches %}
+        Матчи:
+    <ul>
+        {% for m in matches %}
+            <li>{{ m.opponent }} {{m.tournament}} {{m.m_datetime.strftime('%d.%m.%Y, %H:%M')}} <a href="{{ url_for('.stadium', match=m.match_id) }}">Купить</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    Здесь будет информация о матчах
+    {% endif %}
+</h2>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Изменить адрес эл.почты{% endblock %}
+
+{% block body %}
+{% for field, errors in form.errors.items() %}
+    <small class="form-text text-muted ">
+    <FONT COLOR=RED>{{ ', '.join(errors) }}</FONT>
+    </small>
+{% endfor %}
+<div class="page-header">
+    <h1>Измените адрес электронной почты</h1>
+</div>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.email.label }} {{ form.email() }}
+        <p>{{ form.password.label }} {{ form.password() }}
+        <p>{{ form.submit() }}
+    </form>
+{% endblock %}
