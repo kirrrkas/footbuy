@@ -135,12 +135,10 @@ def ticket_download(ticket_id):
             return_data.write(fo.read())
         # (after writing, cursor will be at last byte, so move it to start)
         return_data.seek(0)
+        os.remove(filename_qr)
+        os.remove(file_path_pdf)
         return send_file(return_data, mimetype='application/pdf',
                          attachment_filename=f'ticket{ticket[3]}.pdf')
-        # pdf = pdfkit.from_string(html, app.config['DOWNLOAD_FOLDER'] + f'ticket{ticket[3]}.pdf')
-    # @app.route('/uploads/<filename>')
-    # def uploaded_file(filename):
-    #     return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename, as_attachment=True)
     else:
         flash("Вы не купили этот билет.")
         return redirect(url_for('.index'))
