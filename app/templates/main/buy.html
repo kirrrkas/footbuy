@@ -1,26 +1,54 @@
-{% extends 'base.html' %}
-
-{% block title %}
-Покупка билетов
+{% extends "base.html" %}
+{% block title %}Покупка билетов{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/maneform.css') }}">
 {% endblock %}
 
-{% block body %}
-<h1>FootBuy</h1>
-<h2>
+{% block header %}
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{category}}">{{ message }}</div>
+    {% endfor %}
+    <h1 class="title">Спасибо за покупку!</h1>
+    <h2 class="list">купленные билеты</h2>
+
+{% endblock %}
+
+{% block content %}
+<div class="container2">
     {% if tickets %}
-    Вы купили билеты:
-    <ul>
-        {% for ticket in tickets %}
-            <li>{{ticket}}
-                <br><a href={{ url_for('.ticket_download', ticket_id=ticket) }}>
-	                <button>Скачать билет</button>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    На сумму: {{ sum_price }} руб.
+    {% for ticket in tickets %}
+    <div class="row">
+
+        <div class="col-md-10 margin_promo">
+            {{ticket}}
+        </div>
+
+        <div class="col-md-2">
+            <form>
+                <button type="submit" formaction="{{ url_for('.ticket_download', ticket_id=ticket.ticket_id) }}" class="btnb">Скачать билет</button>
+            </form>
+        </div>
+
+    </div>
+    {% endfor %}
+        <div class="row">
+        <br><div class="col-md-12 margin_promo">
+            <h3>Сумма покупки: {{ sum_price }} руб.</h3>
+        </div></div>
     {% else %}
-        Вы не выбрали ни один билет
+        <div class="row">
+
+        <div class="col-md-2 margin_promo"></div>
+
+        <div class="col-md-9 margin_promo">
+            Вы не выбрали ни один билет
+        </div>
+
+        <div class="col-md-3 margin_promo"></div>
+        <div class="col-md-2"></div>
+
+    </div>
+
     {% endif %}
-</h2>
+</div>
 {% endblock %}

@@ -3,7 +3,8 @@ from .. import db
 from flask_security import login_user, logout_user, login_required, current_user
 from . import auth
 from app.models import Fan, FanID
-from .forms import LoginForm, RegistrationForm, ChangeEmailForm
+from .forms import LoginForm, RegistrationForm, ChangeEmailForm, ChangePasswordForm, \
+    PasswordResetForm, PasswordResetRequestForm
 from ..email import send_email
 
 
@@ -38,7 +39,7 @@ def login():
         if (user is not None) and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             return redirect(request.args.get('next') or url_for('main.index'))
-        flash('Неверный логин или пароль')
+        flash('Неверный логин или пароль', 'error')
     return render_template('auth/login.html', form=form)
 
 
@@ -79,6 +80,38 @@ def register():
     return render_template('auth/register.html', form=form)
 
 
+@auth.route('/reset', methods=['GET', 'POST'])
+def password_reset_request():
+    if not current_user.is_anonymous:
+        return redirect(url_for('main.index'))
+    form = PasswordResetRequestForm()
+    if form.validate_on_submit():
+        user = Fan.query.filter_by(email=form.email.data.lower()).first()
+        if user:
+            token = user.generate_reset_token()
+            send_email(user.email, 'Сброс вашего пароля',
+                       'auth/email/reset_password',
+                       user=user, token=token)
+        flash('Вам было отправлено электронное письмо с инструкциями по сбросу вашего пароля.')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/reset_password.html', form=form)
+
+
+@auth.route('/reset/<token>', methods=['GET', 'POST'])
+def password_reset(token):
+    if not current_user.is_anonymous:
+        return redirect(url_for('main.index'))
+    form = PasswordResetForm()
+    if form.validate_on_submit():
+        if Fan.reset_password(token, form.password.data):
+            db.session.commit()
+            flash('Ваш пароль был изменён.')
+            return redirect(url_for('auth.login'))
+        else:
+            return redirect(url_for('main.index'))
+    return render_template('auth/reset_password.html', form=form)
+
+
 @auth.route('/confirm/<token>')
 @login_required
 def confirm(token):
@@ -97,10 +130,27 @@ def confirm(token):
 @login_required
 def resend_confirmation():
     token = current_user.generate_confirmation_token()
-    send_email(current_user.email, 'Confirm Your Account',
+    send_email(current_user.email, 'Подтвердите вашу учетную запись',
                'auth/email/confirm', user=current_user, token=token)
-    flash('A new confirmation email has been sent to you by email.')
+    flash('Новое электронное письмо с подтверждением было отправлено вам по электронной почте.')
     return redirect(url_for('main.index'))
+
+
+@auth.route('/change-password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        user = Fan.query.filter_by(id=current_user.id)
+        if user.verify_password(form.old_password.data):
+            user.password = form.password.data
+            db.session.add(current_user)
+            db.session.commit()
+            flash('Ваш пароль был изменён.')
+            return redirect(url_for('main.index'))
+        else:
+            flash('Неверный пароль.')
+    return render_template("auth/change_password.html", form=form)
 
 
 @auth.route('/change_email', methods=['GET', 'POST'])

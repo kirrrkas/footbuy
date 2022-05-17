@@ -1,0 +1,265 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.promo{
+    background: url("/static/img/bg.png") #fff;
+    height: auto;
+    padding-bottom: 80px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 119px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 75px;
+    line-height: 91px;
+    text-transform: uppercase;
+    color: #EEEEEE;
+}
+
+.row .c1 {
+    margin-top: 112px;
+    width: 156px;
+    height: 99px;
+    left: 580px;
+    top: 322px;
+
+    background: #FFEF5A;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .c2 {
+    margin-top: 112px;
+    width: 156px;
+    height: 99px;
+    left: 580px;
+    top: 322px;
+
+    background: #FFEF5A;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .c3 {
+    margin-top: 112px;
+    width: 156px;
+    height: 99px;
+    left: 580px;
+    top: 322px;
+
+    background: #FFEF5A;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .c4 {
+    margin-top: 112px;
+    width: 156px;
+    height: 99px;
+    left: 580px;
+    top: 322px;
+
+    background: #FFEF5A;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .field {
+    margin-top: 25px;
+    margin-left: 30px;
+    width: 751px;
+    height: 493px;
+    left: 585px;
+    top: 445px;
+}
+
+.row .z1 {
+    margin-top: 50px;
+    width: 146px;
+    height: 195px;
+    left: 380px;
+    top: 467px;
+
+    background: #FF4F4F;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .z2 {
+    margin-top: 50px;
+    width: 146px;
+    height: 195px;
+    left: 380px;
+    top: 467px;
+
+    background: #FF4F4F;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .v1 {
+    margin-top: 50px;
+    width: 146px;
+    height: 195px;
+    left: 380px;
+    top: 467px;
+
+    background: #FF4F4F;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .v2 {
+    margin-top: 50px;
+    width: 146px;
+    height: 195px;
+    left: 380px;
+    top: 467px;
+
+    background: #FF4F4F;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .y1 {
+    width: 156px;
+    height: 99px;
+    left: 580px;
+    top: 322px;
+
+    background: #FFEF5A;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .y2 {
+    width: 156px;
+    height: 99px;
+    left: 580px;
+    top: 322px;
+
+    background: #FFEF5A;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .y3 {
+    width: 156px;
+    height: 99px;
+    left: 580px;
+    top: 322px;
+
+    background: #FFEF5A;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.row .y4 {
+    width: 156px;
+    height: 99px;
+    left: 580px;
+    top: 322px;
+
+    background: #FFEF5A;
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 41px;
+
+    color: #000000;
+}
+
+.choose {
+    margin-top: 112px;
+    margin-left: 377px;
+    width: 502px;
+    height: 59px;
+    left: 709px;
+    top: 1173px;
+
+    background: #1A2A43;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #D9D9D9;
+}

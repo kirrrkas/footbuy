@@ -7,6 +7,7 @@ from flask_mail import Mail
 from flask_admin import Admin
 from flask_security import Security
 from flask_migrate import Migrate
+from flask_bootstrap import Bootstrap
 
 ### ДЛЯ ОПЛАТЫ ###
 # from cloudipsp import Api, Checkout
@@ -25,6 +26,7 @@ login_manager.login_view = 'auth.login'
 
 f_admin = Admin(name='FootBuy')
 security = Security()
+bootstrap = Bootstrap()
 
 
 def create_app():
@@ -37,6 +39,8 @@ def create_app():
 
     mail.init_app(app)
     login_manager.init_app(app)
+
+    bootstrap.init_app(app)
 
     # подключение маршрутов и нестандартных страниц с сообщениями об ошибках
     from app.main import main as main_blueprint

@@ -3,13 +3,17 @@ from app import db
 from sqlalchemy import desc
 from flask_security import login_required, current_user
 from . import main
-from flask import redirect, url_for, request, render_template, flash, send_from_directory
+from flask import redirect, url_for, request, render_template, flash, send_from_directory, send_file
 from ..models import Match, Ticket, Stadium, Fan
 from datetime import datetime
 from pytz import timezone
 import qrcode
 from weasyprint import HTML
+import io
+import os
+###  ДЛЯ ОПЛАТЫ ###
 # from app import api, checkout
+###
 
 
 @main.route('/')
@@ -68,6 +72,7 @@ def buy_tickets(tickets):
     if len(tickets) > 0:
         tickets = set(tickets.split(","))
     sum_price = 0
+    tickets_info = []
     for i, tick_id in enumerate(tickets, start=0):
         i = Ticket.query.filter_by(ticket_id=tick_id).first_or_404()
         if i.t_status == False and (i not in user.tickets):
@@ -80,6 +85,7 @@ def buy_tickets(tickets):
         i.fans.append(user)
         db.session.add(i)
         sum_price += i.price
+        tickets_info.append(i)
     db.session.commit()
     print(tickets)
     # if request.method == 'POST':
@@ -88,7 +94,7 @@ def buy_tickets(tickets):
     #         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     #         process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename), filename)
     #         return redirect(url_for('uploaded_file', filename=filename))
-    return render_template('main/buy.html', tickets=tickets, sum_price=sum_price)
+    return render_template('main/buy.html', tickets=tickets_info, sum_price=sum_price)
 
     ###### ДЛЯ ОПЛАТЫ ######
     # amount = 0
@@ -118,11 +124,19 @@ def ticket_download(ticket_id):
                           Stadium.row, Stadium.place). \
             filter(Ticket.ticket_id == ticket_id).first_or_404()
         qr = qrcode.make(ticket_id)
-        filename = app.config['UPLOAD_FOLDER'] + f'qr{ticket_id}.png'
-        qr.save(filename)
-        html = render_template('ticket/TICKET_TEMPLATE.html', filename=filename, ticket=ticket)
-        HTML(string=html).write_pdf(app.config['DOWNLOAD_FOLDER'] + f'ticket{ticket[3]}.pdf')
-        return send_from_directory(app.config['DOWNLOAD_FOLDER'], f'ticket{ticket[3]}.pdf', as_attachment=True)
+        filename_qr = app.config['UPLOAD_FOLDER'] + f'qr{ticket_id}.png'
+        qr.save(filename_qr)
+        html = render_template('ticket/TICKET_TEMPLATE.html', filename=filename_qr, ticket=ticket)
+        file_path_pdf = app.config['DOWNLOAD_FOLDER'] + f'ticket{ticket[3]}.pdf'
+        HTML(string=html).write_pdf(file_path_pdf)
+        # return send_from_directory(app.config['DOWNLOAD_FOLDER'], f'ticket{ticket[3]}.pdf', as_attachment=True)
+        return_data = io.BytesIO()
+        with open(file_path_pdf, 'rb') as fo:
+            return_data.write(fo.read())
+        # (after writing, cursor will be at last byte, so move it to start)
+        return_data.seek(0)
+        return send_file(return_data, mimetype='application/pdf',
+                         attachment_filename=f'ticket{ticket[3]}.pdf')
         # pdf = pdfkit.from_string(html, app.config['DOWNLOAD_FOLDER'] + f'ticket{ticket[3]}.pdf')
     # @app.route('/uploads/<filename>')
     # def uploaded_file(filename):

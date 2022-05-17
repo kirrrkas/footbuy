@@ -1,25 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Вход{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/maneform.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/authorization.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
+{% endblock %}
 
-{% block body %}
-
-{% for field, errors in form.errors.items() %}
-    <small class="form-text text-muted ">
-    <FONT COLOR=RED>{{ ', '.join(errors) }}</FONT>
-    </small>
-{% endfor %}
-
-    <div class="page-header">
-        <h1>
-            Вход
-        </h1>
+{% block content %}
+<form method="post" class="decor">
+    <div class="form-inner">
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{category}}">{{ message }}</div>
+    {% endfor %}
+    <h3>Авторизация</h3>
+    {{ form.hidden_tag() }}
+    {{ form.login(placeholder="Логин") }}
+    {{ form.password(placeholder="Пароль") }}
+    {{ form.submit() }}<br>
+    <p>Забыли пароль? <br><a href="{{ url_for('auth.password_reset_request') }}">Нажмите здесь, чтобы сбросить его</a>.</p>
+    <p>Новый пользователь? <br><a href="{{ url_for('auth.register') }}">Нажмите для регистрации</a>.</p>
     </div>
-    <form method="post">
-        {{ form.hidden_tag() }}
-        {{ form.login.label }} {{ form.login() }}
-        <p>{{ form.password.label }} {{ form.password() }}
-        <p>{{ form.remember_me.label }} {{ form.remember_me() }}
-        <p>{{ form.submit() }}
-        <p>Новый пользователь? <a href="{{ url_for('auth.register') }}">Нажмите для регистрации</a>.</p>
-    </form>
+ </form>
 {% endblock %}

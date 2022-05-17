@@ -84,6 +84,11 @@ class FanIDAdminView(AdminMixin, ModelView):
 class MatchAdminView(AdminMixin, ModelView):
     column_filters = ('match_id', 'opponent', 'tournament', 'm_datetime')
 
+    def get_edit_form(self):
+        form_class = super(MatchAdminView, self).get_edit_form()
+        del form_class.m_tickets
+        return form_class
+
     @expose('/new/', methods=('GET', 'POST'))
     def create_view(self):
         return redirect(url_for('admin_bp.add_match'))

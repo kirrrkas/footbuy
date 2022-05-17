@@ -1,0 +1,99 @@
+.alert {
+  padding: 12px;
+  border-radius: 9px;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  border-width: 2px;
+  border-style: solid;
+  text-align: center;
+  max-width: 300px;
+}
+
+.alert-error {
+  border-color: darkred;
+  background-color: red;
+  color: white;
+}
+
+.alert-message {
+  border-color: #1A2A43;
+  background: linear-gradient(180deg, #EEEEEE 34.55%, rgba(238, 238, 238, 0) 291.82%);
+  color: #1A2A43;
+}
+
+.profile {
+    padding: 10px;
+    height: 56px;
+}
+
+
+.promo .sb3 {
+    margin-top: 55px;
+    width: 197px;
+    height: 55px;
+    left: 1343px;
+    top: 50px;
+
+    background: linear-gradient(180deg, #EEEEEE 34.55%, rgba(238, 238, 238, 0) 291.82%);
+    border-radius: 100px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 21px;
+
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+
+    color: #0A1215;
+}
+
+.promo .sb1 {
+    margin-top: 55px;
+    width: 197px;
+    height: 55px;
+    left: 1343px;
+    top: 50px;
+
+    background: linear-gradient(180deg, #EEEEEE 34.55%, rgba(238, 238, 238, 0) 291.82%);
+    border-radius: 100px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 21px;
+
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+
+    color: #0A1215;
+}
+
+.promo .sb2 {
+    margin-top: 55px;
+    width: 197px;
+    height: 55px;
+    left: 1343px;
+    top: 50px;
+
+    background: linear-gradient(180deg, #EEEEEE 34.55%, rgba(238, 238, 238, 0) 291.82%);
+    border-radius: 100px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 21px;
+
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+
+    color: #0A1215;
+}
+
+.logo {
+    text-align: center;
+    padding: 30px
+}

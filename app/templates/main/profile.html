@@ -1,28 +1,66 @@
-{% extends 'base.html' %}
-
-{% block title %}
-Профиль
+{% extends "base.html" %}
+{% block title %}Профиль{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/maneform.css') }}">
 {% endblock %}
+{% block header %}
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{category}}">{{ message }}</div>
+    {% endfor %}
+    <h1 class="title">Профиль</h1>
+    <div class="row">
 
-{% block body %}
-<h1>FootBuy</h1>
-<h2><a href="{{ url_for('auth.change_email_request') }}">Изменить адрес эл.почты</a></h2>
-<h4>
-    {% if tickets %}
-    Ваши билеты:
-    <ul>
-        {% for ticket in tickets %}
-            <li>{{ticket}}
-                <br><a href={{ url_for('.ticket_download', ticket_id=ticket.ticket_id) }}>
-	                <button>Скачать билет</button>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    Вы не приобрели ни одного билета
-    {% endif %}
-</h4>
+    <div class="col-md-4"></div>
+    <div class="col-md-2">
+        <form>
+            <button type="submit" formaction="{{ url_for('auth.change_email_request') }}" class="sb1">Изменить адрес эл.почты</button>
+        </form>
+    </div>
+    <div class="col-md-2">
+        <form>
+            <button type="submit" formaction="{{ url_for('auth.change_password') }}" class="sb2">Изменить пароль</button>
+        </form>
+    </div>
+    </div>
+    <h2 class="list">купленные билеты</h2>
+
+{% endblock %}
+{% block content %}
 
 
+    <div class="container_new">
+        <div class="container2">
+            {% if tickets %}
+            {% for ticket in tickets %}
+            <div class="row">
+
+                <div class="col-md-10 margin_promo">
+                    {{ticket}}
+                </div>
+
+                <div class="col-md-2">
+                    <form>
+                        <button type="submit" formaction="{{ url_for('.ticket_download', ticket_id=ticket.ticket_id) }}" class="btnb">Скачать билет</button>
+                    </form>
+                </div>
+
+            </div>
+            {% endfor %}
+            {% else %}
+                <div class="row">
+
+                <div class="col-md-2 margin_promo"></div>
+
+                <div class="col-md-9 margin_promo">
+                    Вы не приобрели ни одного билета
+                </div>
+
+                <div class="col-md-3 margin_promo"></div>
+                <div class="col-md-2"></div>
+
+            </div>
+
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
-<html lang="ru" class="js">
+{% block title %}Выбор места{% endblock %}
 	{% block head %}
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="../../static/demo.css" />
-		<link rel="stylesheet" type="text/css" href="../../static/component.css" />
-		<link media="screen" href="../../static/demo.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/maneform.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/authorization.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/component.css') }}"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	{% endblock %}
-		{% block title %}
-			Выбор места
-		{% endblock %}
-	{% block body %}
+{% block header %}
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{category}}">{{ message }}</div>
+    {% endfor %}
+    <h1 class="title">Выберите место</h1>
+    <h2 class="list">Сектор</h2>
+{% endblock %}
+	{% block content %}
+        <div class="container2">
 		<div class="plan">
-			<h3 class="plan__title">Выберите место:</h3>
-
 			<div class="rows rows--mini">
 				{% for m_row in m_rows %}
-				<div class="row">
+				<div class="row_s">
 					{% for place in tickets_sector %}
 						{% if place[0] == m_row[0] %}
 							{% if place[3] == 1 %}
@@ -33,19 +35,19 @@
 			</div>
 			<!-- /rows -->
             <br><div class="plan__price" data-price="{{ tickets_sector[0][4] }}">Цена билета: {{ tickets_sector[0][4] }} рублей</div>
-            <br><div class="plan__sum__price" data-sum-price=""></div>
+            <div class="plan__sum__price" data-sum-price=""></div>
 			<ul class="legend">
 				<li class="legend__item legend__item--free">Свободные</li>
 				<li class="legend__item legend__item--reserved">Резерв</li>
 				<li class="legend__item legend__item--selected">Выбранные</li>
 			</ul>
-
+            <br>
 			<form id="buy-form" method="post">
-        		<button disabled="" type="submit" name="buy_button" class="action action--buy">Купить билет</button>
+        		<button disabled="" type="submit" name="buy_button" class="action action--buy">Купить</button>
     		</form>
 			<!--<button class="action action--buy" >Купить билет</button>-->
 		</div><!-- /plan -->
+        </div>
 		<script src="../../static/seats.js"></script>
 		<script src="../../static/classie.js"></script>
 	{% endblock %}
-</html>

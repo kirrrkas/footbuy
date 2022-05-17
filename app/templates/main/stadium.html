@@ -1,18 +1,113 @@
-{% extends 'base.html' %}
-
-{% block title %}
-Выбор сектора
+{% extends "base.html" %}
+{% block title %}Выбор сектора{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/maneform.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sector.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/authorization.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
 {% endblock %}
 
-{% block body %}
-<h1>FootBuy</h1>
-<h2>
-    {% if sectors %}
-    <ul>
-        {% for sector in sectors %}
-            <li><a href="{{ url_for('.sector', match=match, m_sector=sector[0]) }}">{{sector[0]}}</a></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</h2>
+{% block header %}
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{category}}">{{ message }}</div>
+    {% endfor %}
+    <br><br>
+    <h1 class="title">Выберите сектор</h1>
+    <h2 class="list">Стадион</h2>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+        <form>
+            <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="A1") }}" class="c1">A1</button>
+        </form>
+    </div>
+
+
+    <div class="col-md-2">
+        <form>
+            <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="A2") }}" class="c2">A2</button>
+        </form>
+    </div>
+
+    <div class="col-md-2">
+        <form>
+            <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="A3") }}" class="c3">A3</button>
+        </form>
+    </div>
+
+    <div class="col-md-2 ">
+        <form>
+            <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="A4") }}" class="c4">A4</button>
+        </form>
+    </div>
+
+    <div class="col-md-2"></div>
+</div>
+
+
+<div class="row">
+
+<div class="col-md-2" style="z-index: 1;">
+    <form>
+        <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="B1") }}" class="z1">B1</button>
+    </form>
+</div>
+<div class="col-sm-8 ">
+    <div class="row">
+        <div class="col-12 col-sm-8">
+            <img src="{{ url_for('static', filename='img/field.png') }}" alt="field" class="field">
+        </div>
+    </div>
+</div>
+<div class="col-md-2" style="z-index: 1;">
+    <form>
+        <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="D1") }}" class="z1">D1</button>
+    </form>
+</div>
+
+<div class="col-md-2" style="z-index: 5; margin-top: -256px;">
+    <form>
+        <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="B2") }}" class="z1">B2</button>
+    </form>
+</div>
+<div class="col-md-2 offset-md-8" style="z-index: 5; margin-top: -256px;">
+    <form>
+        <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="D2") }}" class="z1">D2</button>
+    </form>
+</div>
+</div>
+
+
+<div class="row" style="padding-top:25px">
+
+    <div class="col-md-2"></div>
+
+    <div class="col-md-2">
+        <form>
+            <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="C1") }}" class="y1">C1</button>
+        </form>
+    </div>
+
+    <div class="col-md-2">
+        <form>
+            <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="C2") }}" class="y2">C2</button>
+        </form>
+    </div>
+
+    <div class="col-md-2">
+        <form>
+            <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="C3") }}" class="y3">C3</button>
+        </form>
+    </div>
+
+    <div class="col-md-2">
+        <form>
+            <button type="submit" formaction="{{ url_for('.sector', match=match, m_sector="C4") }}" class="y4">C4</button>
+        </form>
+    </div>
+
+    <div class="col-md-2"></div>
+</div>
 {% endblock %}

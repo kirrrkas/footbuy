@@ -1,17 +1,57 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block body %}
-<h1>FootBuy</h1>
-<h2>
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/maneform.css') }}">
+{% endblock %}
+
+{% block header %}
+    <br><br>{% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{category}}">{{ message }}</div>
+    {% endfor %}
+    <h1 class="title">здесь вы можете приобрести билеты</h1>
+    <h2 class="list">список матчей</h2>
+{% endblock %}
+
+{% block content %}
+<div class="container2">
     {% if matches %}
-        Матчи:
-    <ul>
-        {% for m in matches %}
-            <li>{{ m.opponent }} {{m.tournament}} {{m.m_datetime.strftime('%d.%m.%Y, %H:%M')}} <a href="{{ url_for('.stadium', match=m.match_id) }}">Купить</a></li>
-        {% endfor %}
-    </ul>
+    {% for m in matches %}
+    <div class="row">
+
+        <div class="col-md-4 margin_promo">
+            *Наши* - {{ m.opponent }}
+        </div>
+
+        <div class="col-md-3 margin_promo">
+            {{m.tournament}}
+        </div>
+
+        <div class="col-md-3 margin_promo">
+            {{m.m_datetime.strftime('%d.%m.%Y, %H:%M')}}
+        </div>
+
+        <div class="col-md-2">
+            <form>
+                <button type="submit" formaction="{{ url_for('.stadium', match=m.match_id) }}" class="btnb">Купить</button>
+            </form>
+        </div>
+
+    </div>
+    {% endfor %}
     {% else %}
-    Здесь будет информация о матчах
+        <div class="row">
+
+        <div class="col-md-2 margin_promo"></div>
+
+        <div class="col-md-9 margin_promo">
+            Пока что нет матчей, на которые продаются билеты :(
+        </div>
+
+        <div class="col-md-3 margin_promo"></div>
+        <div class="col-md-2"></div>
+
+    </div>
+
     {% endif %}
-</h2>
+</div>
 {% endblock %}

@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 
-.row {
+.row_s {
   display: -webkit-flex;
   display: flex;
   width: 100%;
@@ -147,14 +147,28 @@
 }
 
 .action--buy {
+  width: 197px;
+  height: 55px;
+  left: 1282px;
+  top: 1064px;
+
+  background: linear-gradient(180deg, rgba(26, 42, 67, 0.89) 34.55%, #1A2A43 291.82%);
+  border-radius: 100px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 21px;
+  /* identical to box height */
+
+  text-align: center;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+
+  color: #D9D9D9;
   margin: 1em auto;
-  background: #26AD4F;
-  font-size: 1em;
-  width: 100%;
-  padding: 0.75em 1.5em;
-  border-radius: 3px;
+
   display: block;
-  max-width: 230px;
 }
 
 .action--buy:hover {
@@ -167,6 +181,7 @@
   transform: translate3d(0, 0, 0);
   position: relative;
   margin: 0 auto;
+  padding-top: 80px;
 }
 
 .rows--mini .row__seat:hover {
