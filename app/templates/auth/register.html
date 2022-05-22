@@ -6,19 +6,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/maneform.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/registration.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
+
 {% endblock %}
 {% block content %}
-{% for field, errors in form.errors.items() %}
-    <small class="form-text text-muted ">
-    <FONT COLOR=RED>{{ ', '.join(errors) }}</FONT>
-    </small>
-{% endfor %}
-
 <form method="post" class="decor">
     <div class="form-inner">
+        {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{category}}">{{ message }}</div>
+    {% endfor %}
     <h3>Регистрация</h3>
     {{ form.hidden_tag() }}
-        {{ form.fanID(placeholder="Номер FanID") }}
+        {{ form.fanID(placeholder="Номер FanID", min="1") }}
         {{ form.full_name(placeholder="ФИО") }}
         {{ form.phone(placeholder="Номер телефона") }}
         {{ form.email(placeholder="Электронная почта") }}
@@ -28,4 +26,9 @@
         {{ form.submit() }}
     </div>
  </form>
+{% endblock %}
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+<script src="{{ url_for('static', filename='reg.js') }}"></script>
 {% endblock %}

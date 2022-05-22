@@ -1,4 +1,3 @@
-//plan = document.querySelector('.plan')
 planseats = [].slice.call(document.querySelectorAll('.row__seat'))
 placesDict = {}
 

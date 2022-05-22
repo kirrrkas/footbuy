@@ -17,10 +17,10 @@
     {% endfor %}
     <h3>Добавление матча</h3>
         {{ form.hidden_tag() }}
-         {{ form.opponent(placeholder="Соперник") }}
+        {{ form.opponent(placeholder="Соперник") }}
         {{ form.tournament(placeholder="Турнир") }}
-        {{ form.m_datetime(min="2020-01-01T00:00", max="9999-12-31T23:59", placeholder="Дата и время") }}
-        {{ form.price(placeholder="Цена билета") }}
+        {{ form.m_datetime(min=time_now, max=time_max, placeholder="Дата и время") }}
+        {{ form.price(placeholder="Цена билета", min="0", max="100000") }}
         {{ form.submit() }}
     </div>
  </form>

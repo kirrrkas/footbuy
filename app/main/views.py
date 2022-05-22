@@ -49,7 +49,7 @@ def sector(match, m_sector):
             with_entities(Stadium.row, Stadium.place, Ticket.ticket_id, Ticket.t_status, Ticket.price). \
             filter(Stadium.sector == m_sector, Ticket.m_id == match).order_by(desc(Stadium.row)).all()
         print(tickets_sector)
-        return render_template('main/seats.html', m_rows=m_rows, tickets_sector=tickets_sector)
+        return render_template('main/seats.html', m_rows=m_rows, tickets_sector=tickets_sector, m_sector=m_sector)
 
     if request.method == 'POST':
         tickets = request.form.getlist('ticket[]')
@@ -86,6 +86,9 @@ def buy_tickets(tickets):
         db.session.add(i)
         sum_price += i.price
         tickets_info.append(i)
+        qr = qrcode.make(tick_id)
+        filename_qr = app.config['UPLOAD_FOLDER'] + f'qr{tick_id}.png'
+        qr.save(filename_qr)
     db.session.commit()
     print(tickets)
     # if request.method == 'POST':
@@ -123,9 +126,7 @@ def ticket_download(ticket_id):
             with_entities(Match.opponent, Match.m_datetime, Ticket.price, Ticket.ticket_id, Stadium.sector,
                           Stadium.row, Stadium.place). \
             filter(Ticket.ticket_id == ticket_id).first_or_404()
-        qr = qrcode.make(ticket_id)
         filename_qr = app.config['UPLOAD_FOLDER'] + f'qr{ticket_id}.png'
-        qr.save(filename_qr)
         html = render_template('ticket/TICKET_TEMPLATE.html', filename=filename_qr, ticket=ticket)
         file_path_pdf = app.config['DOWNLOAD_FOLDER'] + f'ticket{ticket[3]}.pdf'
         HTML(string=html).write_pdf(file_path_pdf)

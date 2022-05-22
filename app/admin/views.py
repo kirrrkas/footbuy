@@ -6,7 +6,7 @@ from ..models import Fan, Match, Role, FanID, Stadium, Ticket
 from flask_admin import AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_security import SQLAlchemyUserDatastore, current_user, login_required, roles_required
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import timezone
 
 
@@ -17,9 +17,8 @@ from pytz import timezone
 @roles_required('admin')
 def add_match():
     form = AddMatchForm()
-    time_now = datetime.now(timezone('Europe/Moscow'))
-    all_matches = Match.query.filter(Match.m_datetime >= time_now).order_by(Match.m_datetime).all()
-    archive_matches = Match.query.filter(Match.m_datetime <= time_now).order_by(Match.m_datetime).all()
+    time_now = datetime.now(timezone('Europe/Moscow')).strftime('%Y-%m-%dT%H:%M')
+    time_max = (datetime.now(timezone('Europe/Moscow')) + timedelta(weeks=8)).strftime('%Y-%m-%dT%H:%M')
     if form.validate_on_submit():
         try:
             match = Match.query.filter_by(opponent=form.opponent.data, tournament=form.tournament.data,
@@ -40,7 +39,7 @@ def add_match():
             flash("Недопустимые данные")
         return redirect(url_for('admin_bp.add_match'))
     print(form.errors)
-    return render_template('admin/match_form.html', form=form, all_matches=all_matches, archive_matches=archive_matches)
+    return render_template('admin/match_form.html', form=form, time_now=time_now, time_max=time_max)
 
 
 class AdminMixin:

@@ -28,6 +28,8 @@ def unconfirmed():
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     """ Авторизация """
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
     form = LoginForm()
     if form.validate_on_submit():
         try:  # проверка типа введёных данных
@@ -55,6 +57,8 @@ def logout():
 @auth.route('/register', methods=['GET', 'POST'])  # регистрация
 def register():
     """ Регистрация """
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
         create_fan_id = FanID(full_name=form.full_name.data)  # добавление FanID в БД
