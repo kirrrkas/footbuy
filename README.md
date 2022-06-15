@@ -1,6 +1,5 @@
-# footbuy
+# Сайт продажи билетов на футбольные матчи FootBuy
 
-Сайт продажи билетов на футбольные матчи
 
 DEMO: [kirilzhu.beget.tech](http://kirilzhu.beget.tech)
 
